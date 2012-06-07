@@ -12,6 +12,8 @@ To run the tests, go to a command line, navigate to the nano directory and type:
 ```bash
 node test
 ```
+This will run the "test" module and effectively copy the copyme folder structure
+to a "copyto" folder structure.
 
 Copying Directories
 -------------------
@@ -27,6 +29,6 @@ Versioning
 ----------
 If you have a file that contains a version in the form of vNN (v1, v13, etc) this
 can be auto-versioned by adding a third, true parameter:
-```bash
+```
 node ../VLS5/vls-nano true
 ```
