@@ -29,6 +29,6 @@ Versioning
 ----------
 If you have a file that contains a version in the form of vNN (v1, v13, etc) this
 can be auto-versioned by adding a third, true parameter:
-```
+```text
 node ../VLS5/vls-nano true
 ```
