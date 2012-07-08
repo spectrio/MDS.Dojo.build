@@ -24,8 +24,17 @@ if(args[2]){
 	process.exit(1);
 }
 if(!!args[3]){
-	console.log('version it!');
-	incrementVersion = true;
+	if(typeof args[3] == 'boolean'){
+		log('version it!', args[3]);
+		incrementVersion = true;
+	}else if(typeof args[3] == 'string'){
+		log('root path provided: ', args[3]);
+		struct.root = args[3];
+		if(typeof args[4] == 'string'){
+			log('dest path provided: ', args[4]);
+			struct.dest = args[4];
+		}
+	}
 }
 
 
@@ -37,7 +46,7 @@ var parseStruct = function(){
 	parser.copyStructure(struct, root, dest);
 }
 var copyIndexFile = function(){
-	log('copyIndexFile:', struct.indexSrc, struct.indexDst)
+	log('copyIndexFile:', struct.indexSrc, struct.indexDst);
 	fs.copy(struct.indexSrc, struct.indexDst);
 }
 
