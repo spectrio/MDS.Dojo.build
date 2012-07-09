@@ -40,7 +40,11 @@ if(!!args[3]){
 
 
 var getFolderName = function(filename){
-	return parser.getDeployFolderName(filename, deployFolderPrefix, incrementVersion);
+	if(!filename) return '';
+	var fldr =  parser.getDeployFolderName(filename, deployFolderPrefix, incrementVersion);
+	log(' FLDR:', fldr, struct.dest)
+	if(struct.dest.indexOf(fldr) > -1 ) return '';
+	return fldr;
 }
 var parseStruct = function(){
 	parser.copyStructure(struct, root, dest);
@@ -51,14 +55,15 @@ var copyIndexFile = function(){
 }
 
 
-if(fs.exists(struct.dest)){
+if(struct.clean && fs.exists(struct.dest)){
 	log('REMOVE:', struct.dest)
 	fs.remove(struct.dest);
 }
+delete struct.clean;
 
 fs.mkdir(struct.dest);
 
-if(struct.indexSrc) deployFolder = getFolderName(struct.indexSrc);
+deployFolder = getFolderName(struct.indexSrc);
 var root = struct.root;
 var dest = struct.dest + deployFolder;
 if(struct.indexSrc && struct.indexDst) copyIndexFile();
