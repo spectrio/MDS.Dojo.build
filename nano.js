@@ -49,9 +49,18 @@ var getFolderName = function(filename){
 var parseStruct = function(){
 	parser.copyStructure(struct, root, dest);
 }
+
+var srcIndex = function(){
+	return struct.root + '/' + struct.indexSrc;
+}
+var dstIndex = function(){
+	return struct.dest + '/' + struct.indexDst;
+}
 var copyIndexFile = function(){
-	log('copyIndexFile:', struct.indexSrc, struct.indexDst);
-	fs.copy(struct.indexSrc, struct.indexDst);
+	var src = srcIndex();
+	var dst = dstIndex();
+	log('copyIndexFile:', src, dst);
+	fs.copy(src, dst);
 }
 
 
@@ -63,15 +72,11 @@ delete struct.clean;
 
 fs.mkdir(struct.dest);
 
-deployFolder = getFolderName(struct.indexSrc);
+deployFolder = getFolderName(srcIndex());
 var root = struct.root;
 var dest = struct.dest + deployFolder;
 if(struct.indexSrc && struct.indexDst) copyIndexFile();
 
-delete struct.root;
-delete struct.dest;
-delete struct.indexSrc;
-delete struct.indexDst;
 console.log('STRUCT', struct);
 
 parseStruct();
