@@ -51,10 +51,18 @@ var parseStruct = function(){
 }
 
 var srcIndex = function(){
-	return struct.root + '/' + struct.indexSrc;
+	if(struct.indexSrc[0] == '.' || struct.indexSrc[0] == '/'){
+		// abs path
+		return struct.indexSrc;
+	}
+	return (root || struct.root) + '/' + struct.indexSrc;
 }
 var dstIndex = function(){
-	return struct.dest + '/' + struct.indexDst;
+	if(struct.indexDst[0] == '.' || struct.indexDst[0] == '/'){
+		// abs path
+		return struct.indexDst;
+	}
+	return dest + '/' + struct.indexDst;
 }
 var copyIndexFile = function(){
 	var src = srcIndex();
@@ -68,7 +76,6 @@ if(struct.clean && fs.exists(struct.dest)){
 	log('REMOVE:', struct.dest)
 	fs.remove(struct.dest);
 }
-delete struct.clean;
 
 fs.mkdir(struct.dest);
 
