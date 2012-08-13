@@ -11,6 +11,10 @@ var deployFolder = deployFolderPrefix;
 
 
 var args = process.argv;
+
+log('args:', args[0], args[1], args[2], args[3]);
+
+
 if(args[2]){
 	var file = args[2];
 	if(!/\//.test(file)) file = './' + file;
@@ -24,10 +28,14 @@ if(args[2]){
 	process.exit(1);
 }
 if(!!args[3]){
-	if(typeof args[3] == 'boolean'){
-		log('version it!', args[3]);
+
+	var isTrue = args[3] == true || args[3] == "true";
+
+	log('ARG3 is TRUE?', isTrue)
+	if(isTrue){
+		log('version it!', isTrue);
 		incrementVersion = true;
-	}else if(typeof args[3] == 'string'){
+	}else{
 		log('root path provided: ', args[3]);
 		struct.root = args[3];
 		if(typeof args[4] == 'string'){
